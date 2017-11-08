@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.auth.models import User
-
+from .fields import OrderField
 
 
 class Subject(models.Model):
@@ -35,7 +35,10 @@ class Module(models.Model):
     course = models.ForeignKey(Course, related_name='modules')
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
+    order = OrderField(blank=True, for_fields=['course'])
 
+    class Meta:
+        ordering = ['order']
 
     def __str__(self):
         return '{}. {}'.format(self.order, self.title)
@@ -43,6 +46,7 @@ class Module(models.Model):
 
 class Content(models.Model):
     module = models.ForeignKey(Module, related_name='contents')
+    order = OrderField(blank=True, for_fields=['module'])
     content_type = models.ForeignKey(ContentType,
                                      limit_choices_to={'model__in':('text',
                                                                     'video',
@@ -50,6 +54,9 @@ class Content(models.Model):
                                                                     'file')})
     object_id = models.PositiveIntegerField()
     item = GenericForeignKey('content_type', 'object_id')
+
+    class Meta:
+        ordering = ['order']
 
 
 class ItemBase(models.Model):
