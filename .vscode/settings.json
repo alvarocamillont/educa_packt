@@ -1,5 +1,5 @@
 {
-	"python.pythonPath":"C:\\Users\\alvaro.camillo\\.virtualenvs\\educa_packt-Rx-2Gi1w",
+	"python.pythonPath": "/home/alvaro/.local/share/virtualenvs/educa_packt-Y8LZsWG7/bin/python",
 	"editor.tabSize": 4,
 	"editor.insertSpaces": true,
 	"python.linting.enabled": true,
